@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const platformFeatures = [
   {
@@ -112,15 +113,14 @@ export default function Home() {
 
   return (
     <main className="relative overflow-hidden bg-[#0B1D3A] text-slate-100">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-[#0B1D3A] via-[#0B264a] to-transparent opacity-90" />
       <div className="absolute -right-0 top-12 hidden h-[520px] w-[700px] lg:block">
-        <img src="/images/hero-spotlight.svg" alt="AUIRA spotlight" className="w-full h-full object-cover opacity-95" />
+        <Image src="/images/hero-spotlight.svg" alt="AURA spotlight" width={700} height={520} className="w-full h-full object-cover" priority />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-6 sm:px-8 lg:px-12">
         <nav className="flex items-center justify-between py-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.34em] text-[#C7A461]">AUIRA</p>
+            <Image src="/images/logo.png" alt="AURA BUSINESS INTELLIGENCE" width={180} height={40} priority />
           </div>
           <div className="flex items-center gap-6">
             <a href="#overview" className="text-sm text-slate-200 hover:text-white">Platform</a>
@@ -165,7 +165,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_45px_100px_rgba(0,0,0,0.22)] backdrop-blur-xl">
+          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
             <div className="mb-8 rounded-3xl bg-[#0B1D3A]/80 p-8">
               <p className="text-sm uppercase tracking-[0.24em] text-[#C7A461]">Market intelligence</p>
               <h3 className="mt-4 text-3xl font-semibold text-white">Executive insights, risk pulse, and portfolio clarity in one premium view.</h3>
@@ -193,7 +193,7 @@ export default function Home() {
         </section>
 
         <section className="mt-12">
-          <div className="rounded-[32px] border border-white/10 bg-[#061427]/60 p-8 shadow-card">
+            <div className="rounded-[32px] border border-white/10 bg-[#061427]/60 p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-[#C7A461]">Partner carousel</p>
@@ -206,15 +206,15 @@ export default function Home() {
               <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 py-6">
                 {partnerLogos.map((partner, index) => (
                   <div key={`${partner.alt}-${index}`} className="snap-start flex h-20 min-w-[180px] items-center justify-center rounded-[24px] border border-white/10 bg-white/5 px-6">
-                    <img src={partner.src} alt={partner.alt} className="h-10" />
-                  </div>
+                      <Image src={partner.src} alt={partner.alt} width={160} height={40} />
+                    </div>
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mt-16 rounded-[40px] border border-white/10 bg-[#071426]/80 px-8 py-12 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
+        <section className="mt-16 rounded-[40px] border border-white/10 bg-[#071426]/80 px-8 py-12">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-[#C7A461]">Competitor comparison</p>
@@ -237,7 +237,7 @@ export default function Home() {
         </section>
 
         <section className="mt-16 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-[40px] border border-white/10 bg-[#08172f]/80 p-10 shadow-card">
+          <div className="rounded-[40px] border border-white/10 bg-[#08172f]/80 p-10">
             <p className="text-sm uppercase tracking-[0.24em] text-[#C7A461]">Dashboard preview</p>
             <h3 className="mt-4 text-4xl font-semibold text-white">A preview of the elite executive workspace</h3>
             <p className="mt-4 max-w-2xl text-slate-300">Live metrics, AI alerts, and next-step recommendations stitched into one premium command center.</p>
@@ -251,7 +251,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-[#0B1D3A]/80 p-8 shadow-glow">
+          <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-[#0B1D3A]/80 p-8">
             <div className="absolute inset-y-0 right-6 top-12 h-24 w-24 rounded-full bg-[#C7A461]/10 blur-3xl" />
             <div className="relative rounded-[32px] border border-white/10 bg-[#071426]/90 p-8">
               <div className="flex items-center justify-between">
@@ -328,8 +328,8 @@ export default function Home() {
         <footer className="mt-24 border-t border-white/10 pt-10">
           <div className="flex flex-col gap-6 text-slate-400 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xl font-semibold uppercase tracking-[0.2em] text-[#C7A461]">AUIRA</p>
-              <p className="mt-3 max-w-xl text-sm leading-7">AUIRA is the premium financial platform built for the world’s most discerning capital stewards.</p>
+              <Image src="/images/logo.png" alt="AURA BUSINESS INTELLIGENCE" width={140} height={32} />
+              <p className="mt-3 max-w-xl text-sm leading-7">AURA BUSINESS INTELLIGENCE is the premium financial platform built for the world’s most discerning capital stewards.</p>
             </div>
             <div className="flex flex-wrap gap-5 text-sm">
               <a href="#" className="transition hover:text-white">Privacy</a>
@@ -340,7 +340,7 @@ export default function Home() {
         </footer>
 
         {/* Trial modal */}
-        <div id="trial-modal" className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 ${modalOpen ? '' : 'hidden'}`}>
+          <div id="trial-modal" className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 ${modalOpen ? '' : 'hidden'}`}>
           <div className="w-full max-w-md rounded-xl bg-[#071726] p-6">
             <h4 className="text-lg font-semibold text-white">Start your 7‑Day Free Trial</h4>
             <p className="mt-2 text-sm text-slate-300">Enter your email to begin. Trial enrollment is now persisted on the backend and limited to one email for 7 days.</p>

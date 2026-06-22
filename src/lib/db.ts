@@ -1,19 +1,21 @@
+import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
-let cachedDb: ReturnType<typeof drizzle> | null = null;
-
-function getDb() {
-  if (!cachedDb) {
-    const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/aura?sslmode=disable';
-    cachedDb = drizzle(connectionString);
-  }
-  return cachedDb;
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  throw new Error('Neon DB connection failed: DATABASE_URL is not defined');
 }
 
-// Lazy-loaded proxy for API routes
-export const db = new Proxy({} as any, {
-  get(target, prop) {
-    const dbInstance = getDb();
-    return (dbInstance as any)[prop];
-  }
+const pool = new Pool({
+  connectionString,
+  ssl: { rejectUnauthorized: false }
 });
+
+try {
+  await pool.query('SELECT 1');
+} catch (error) {
+  console.error('Neon DB connection failed', error);
+  throw new Error('Neon DB connection failed');
+}
+
+export const db = drizzle(pool);

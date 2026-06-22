@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   }
 
   await db.update(users).set({
-    company_name: businessName,
+    company: businessName,
     industry,
     country,
     city,

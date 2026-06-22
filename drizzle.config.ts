@@ -2,7 +2,7 @@ import type { Config } from 'drizzle-kit';
 
 const config: Config = {
   dialect: 'postgresql',
-  schema: ['./src/types/database.ts'],
+  schema: ['./drizzle/schema.ts'],
   out: './drizzle'
 };
 

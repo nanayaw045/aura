@@ -1,7 +1,11 @@
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
-const rawSecret = process.env.JWT_SECRET || process.env.DATABASE_URL || 'change-me-to-a-secret';
+const rawSecret = process.env.JWT_SECRET;
+if (!rawSecret) {
+  throw new Error('JWT_SECRET is required for token signing');
+}
+
 const JWT_SECRET = crypto.createHash('sha256').update(rawSecret).digest('hex');
 
 export type AuthPayload = {

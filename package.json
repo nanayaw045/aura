@@ -10,6 +10,7 @@
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "@resend/node": "^1.0.0",
     "bcryptjs": "^2.4.3",
     "drizzle-orm": "1.0.0-rc.4-5d5b77c",
     "framer-motion": "^11.0.0",
