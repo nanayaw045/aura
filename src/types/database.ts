@@ -17,6 +17,14 @@ export const users = pgTable('users', {
   created_at: timestamp('created_at').defaultNow().notNull()
 });
 
+export const trials = pgTable('trials', {
+  id: serial('id').primaryKey(),
+  email: varchar('email', { length: 320 }).notNull(),
+  started_at: timestamp('started_at').defaultNow().notNull(),
+  expires_at: timestamp('expires_at').notNull(),
+  created_at: timestamp('created_at').defaultNow().notNull()
+});
+
 export const deep_dives = pgTable('deep_dives', {
   id: serial('id').primaryKey(),
   user_id: integer('user_id').notNull(),

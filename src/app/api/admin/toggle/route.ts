@@ -1,14 +1,19 @@
 import { NextResponse } from 'next/server';
-import { isMaintenance, setMaintenance } from '@/lib/admin';
+import { isMaintenance, setMaintenance, verifyAdminRequest } from '@/lib/admin';
+
+export async function GET(req: Request) {
+  if (!verifyAdminRequest(req)) {
+    return NextResponse.json({ ok: false, message: 'Unauthorized' }, { status: 401 });
+  }
+  return NextResponse.json({ ok: true, maintenance: isMaintenance() });
+}
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const provided = body?.password;
-    const adminPassword = process.env.ADMIN_PASSWORD || 'Pintogee12345';
-    if (!provided || provided !== adminPassword) {
+    if (!verifyAdminRequest(req)) {
       return NextResponse.json({ ok: false, message: 'Unauthorized' }, { status: 401 });
     }
+    const body = await req.json();
     const action = body?.action || 'toggle';
     if (action === 'toggle') {
       const newVal = setMaintenance(!isMaintenance());

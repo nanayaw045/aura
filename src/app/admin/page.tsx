@@ -8,18 +8,40 @@ export default function AdminPage() {
   const [maintenance, setMaintenance] = useState(false);
   const [msg, setMsg] = useState('');
 
+  useEffect(() => {
+    async function fetchStatus() {
+      try {
+        const res = await fetch('/api/admin/toggle');
+        const json = await res.json();
+        if (res.ok && json.ok) {
+          setLoggedIn(true);
+          setMaintenance(!!json.maintenance);
+        }
+      } catch (err) {
+        // ignore
+      }
+    }
+    fetchStatus();
+  }, []);
+
   async function login(e?: React.FormEvent) {
     e?.preventDefault();
     setMsg('');
     try {
-      const res = await fetch('/api/admin/login', { method: 'POST', body: JSON.stringify({ password }), headers: { 'Content-Type': 'application/json' } });
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        body: JSON.stringify({ password }),
+        headers: { 'Content-Type': 'application/json' }
+      });
       const json = await res.json();
       if (json.ok) {
         setLoggedIn(true);
         setMsg('Logged in');
-        // fetch current maintenance
-        const t = await fetch('/api/admin/toggle', { method: 'POST', body: JSON.stringify({ password, action: 'set', value: false }), headers: { 'Content-Type': 'application/json' } });
-        // ignore
+        const status = await fetch('/api/admin/toggle');
+        const statusJson = await status.json();
+        if (status.ok && statusJson.ok) {
+          setMaintenance(!!statusJson.maintenance);
+        }
       } else {
         setMsg('Unauthorized');
       }
@@ -31,12 +53,31 @@ export default function AdminPage() {
   async function toggle() {
     setMsg('');
     try {
-      const res = await fetch('/api/admin/toggle', { method: 'POST', body: JSON.stringify({ password, action: 'toggle' }), headers: { 'Content-Type': 'application/json' } });
+      const res = await fetch('/api/admin/toggle', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'toggle' }),
+        headers: { 'Content-Type': 'application/json' }
+      });
       const json = await res.json();
       if (json.ok) {
         setMaintenance(!!json.maintenance);
         setMsg('Updated');
       } else setMsg(json.message || 'Failed');
+    } catch (err) {
+      setMsg('Error');
+    }
+  }
+
+  async function logout() {
+    setMsg('');
+    try {
+      const res = await fetch('/api/admin/logout', { method: 'POST' });
+      if (res.ok) {
+        setLoggedIn(false);
+        setMaintenance(false);
+        setPassword('');
+        setMsg('Logged out');
+      }
     } catch (err) {
       setMsg('Error');
     }
@@ -58,8 +99,9 @@ export default function AdminPage() {
                 <p className="text-sm text-slate-400">Maintenance mode</p>
                 <p className="text-lg font-medium">{maintenance ? 'ON' : 'OFF'}</p>
               </div>
-              <div>
+              <div className="flex gap-3">
                 <button onClick={toggle} className="rounded-md bg-[#C7A461] px-4 py-2 text-[#061427]">Toggle</button>
+                <button onClick={logout} className="rounded-md border border-white/10 bg-transparent px-4 py-2 text-white">Logout</button>
               </div>
             </div>
           </div>
