@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from 'react';
+
 const platformFeatures = [
   {
     title: 'Strategic Market Intelligence',
