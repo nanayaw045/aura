@@ -27,6 +27,11 @@ export default function Home() {
     <main className="relative overflow-hidden bg-[#0B1D3A] text-slate-100">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-[#0B1D3A] via-[#0B264a] to-transparent opacity-90" />
       <div className="absolute -right-0 top-12 hidden h-[520px] w-[700px] lg:block">
+  {
+    title: 'Asset-Foward Architecture',
+    description:
+      'Secure infrastructure, encrypted workflows, and institutional-grade governance designed for premier financial teams.',
+  },
         <img src="/images/hero-spotlight.svg" alt="AUIRA spotlight" className="w-full h-full object-cover opacity-95" />
       </div>
 
